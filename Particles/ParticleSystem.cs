@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Emotion.Common.Serialization;
+using Emotion.IO;
 using Emotion.Utility;
 
 namespace Particles
@@ -16,7 +17,7 @@ namespace Particles
         //public ENUM MovementMode
         public Vector3 Direction = new(0, -1, 0); // up 2d
         public float Speed = 500f;
-        public Circle SpawnShape = new Circle(new Vector2(0, 0), 20);
+        public Circle SpawnShape = new Circle(new Vector2(0, 0), 200);
         public float FadeInTime = 200;
         public float FadeOutTime = 200;
         public float SystemTransparency = 1;
@@ -54,17 +55,31 @@ namespace Particles
             {
                 particle.Position += change;
 
-                float output = Maths.Lerp(0.0f, 1.0f, particle.AliveTime / FadeInTime);
+                float output;
+                var beginOfFadeout = LifeTime - FadeOutTime;
+                if (particle.AliveTime > beginOfFadeout)
+                {
+                    var currentFadeOut = particle.AliveTime - beginOfFadeout;
+                    output = Maths.Lerp(1.0f, 0.0f, currentFadeOut / FadeOutTime);
+                }
+                else
+                {
+                    output = Maths.Lerp(0.0f, 1.0f, particle.AliveTime / FadeInTime);
+                }
                 particle.Transparency = output;
             }
         }
 
         public void Render(RenderComposer c)
         {
+            var particleTexture = Engine.AssetLoader.ONE_Get<TextureAsset>("Particle.png");
+
             c.RenderCircleOutline(SpawnShape, Color.PrettyYellow, 1, 30);
+
+            float particleSize = 20;
             foreach (var particle in Particles)
             {
-                c.RenderCircle(particle.Position, 10, Color.White * particle.Transparency, true);
+                c.RenderSprite(particle.Position - new Vector3(particleSize / 2f, particleSize / 2f, 0), new Vector2(particleSize), Color.White * particle.Transparency, particleTexture.Asset?.Texture);
             }
         }
     }
