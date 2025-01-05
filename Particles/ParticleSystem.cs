@@ -15,15 +15,18 @@ namespace Particles
         //public ENUM MovementMode
         public Vector3 Direction = new(0, -1, 0); // up 2d
         public float Speed = 500f;
+        public Circle SpawnShape = new Circle(new Vector2(0, 0), 200);
         
         private float _timer = 0;
 
         public void Update(float dt)
         {
+            var initialPos = SpawnShape.GetRandomPointInsideCircle();
             _timer += dt;
             while (_timer > Periodicity)
             { 
                 var particle = new Particle();
+                particle.Position = initialPos.ToVec3();
                 Particles.Add(particle);
                 _timer -= Periodicity;
             }
@@ -38,18 +41,19 @@ namespace Particles
                 }
             }
 
+
+            var speedPerMS = Speed / 1000f;
+            var speedPerDt = speedPerMS * dt;
+            Vector3 change = Direction * speedPerMS;
             foreach (var particle in Particles)
             {
-                var speedPerMS = Speed / 1000f;
-                var speedPerDt = speedPerMS * dt;
-
-                Vector3 change = Direction * speedPerMS;
                 particle.Position += change;
             }
         }
 
         public void Render(RenderComposer c)
         {
+            c.RenderCircleOutline(SpawnShape, Color.PrettyYellow, 5, 100);
             foreach (var particle in Particles)
             {
                 c.RenderCircle(particle.Position, 10, Color.White * 0.3f, true);
