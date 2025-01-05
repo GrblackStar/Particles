@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Particles", "Particles\Particles.csproj", "{6AB86683-7AA0-4912-B59B-D7A04142CA4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emotion", "..\Emotion\Emotion\Emotion.csproj", "{7D0B1543-C191-4A1B-ADFA-F4E616D208F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emotion.SourceGeneration", "..\Emotion\Emotion.SourceGeneration\Emotion.SourceGeneration.csproj", "{1D7D5B0A-9CB2-4090-953B-7E749ECED86E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AB86683-7AA0-4912-B59B-D7A04142CA4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB86683-7AA0-4912-B59B-D7A04142CA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB86683-7AA0-4912-B59B-D7A04142CA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB86683-7AA0-4912-B59B-D7A04142CA4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0B1543-C191-4A1B-ADFA-F4E616D208F3}.Debug|Any CPU.ActiveCfg = Debug|Win64
+		{7D0B1543-C191-4A1B-ADFA-F4E616D208F3}.Debug|Any CPU.Build.0 = Debug|Win64
+		{7D0B1543-C191-4A1B-ADFA-F4E616D208F3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7D0B1543-C191-4A1B-ADFA-F4E616D208F3}.Release|Any CPU.Build.0 = Release|Win32
+		{1D7D5B0A-9CB2-4090-953B-7E749ECED86E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D7D5B0A-9CB2-4090-953B-7E749ECED86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D7D5B0A-9CB2-4090-953B-7E749ECED86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D7D5B0A-9CB2-4090-953B-7E749ECED86E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
