@@ -26,8 +26,11 @@ public static class Program
 
 public class ParticlesTestScene : SceneWithMap
 {
+    public ParticleSystem ParticleSystem = null!;
+
     protected override IEnumerator InternalLoadSceneRoutineAsync()
     {
+        ParticleSystem = new ParticleSystem();
         yield break;
     }
 
@@ -35,13 +38,13 @@ public class ParticlesTestScene : SceneWithMap
     {
         base.UpdateScene(dt);
 
-
+        ParticleSystem.Update(dt);
     }
 
     public override void RenderScene(RenderComposer c)
     {
         base.RenderScene(c);
 
-        c.RenderSprite(new System.Numerics.Vector3(0, 0, 0), new System.Numerics.Vector2(10, 10), Color.PrettyYellow);
+        ParticleSystem.Render(c);
     }
 }
