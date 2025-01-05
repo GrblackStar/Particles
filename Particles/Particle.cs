@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace Particles
 {
@@ -10,7 +11,7 @@ namespace Particles
     {
         public Vector3 Position { get; set; }
         public float AliveTime { get; set; }
-        public Vector3 Direction { get; set; }
+        public float Transparency { get; set; } = 0f;
 
     }
 }
