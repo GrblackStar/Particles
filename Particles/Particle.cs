@@ -11,7 +11,6 @@ namespace Particles
     {
         public Vector3 Position { get; set; }
         public float AliveTime { get; set; }
-        public float Transparency { get; set; } = 0f;
 
     }
 }
