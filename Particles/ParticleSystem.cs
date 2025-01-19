@@ -24,13 +24,15 @@ namespace Particles
 
     public class ParticleSystem
     {
+        public Vector3 Position;
+
         public List<ColorAtTime> ColorAtTime = new();
 
         public List<Particle> Particles = new();
         public float Periodicity = 70;
         public float LifeTime = 1000;
         //public ENUM MovementMode
-        public float Speed = 500f / 16f;
+        public float Speed = 32;
         public Circle SpawnShape = new Circle(new Vector2(0, 0), 200);
         public IParticleDirectionShape DirectionShape = new ParticleConstantDirection(new Vector3(0, -1, 0));
         
@@ -56,6 +58,8 @@ namespace Particles
                 var initialPos = SpawnShape.GetRandomPointInsideCircle();
                 particle.Position = initialPos.ToVec3();
                 DirectionShape.SetParticleDirection(particle);
+
+                particle.Position += Position;
                 Particles.Add(particle);
                 _timer -= Periodicity;
             }
@@ -74,7 +78,7 @@ namespace Particles
             var speedPerDt = speedPerMS * dt;
             foreach (var particle in Particles)
             {
-                Vector3 change = particle.Direction * speedPerDt;
+                Vector3 change = particle.TargetDirection * speedPerDt;
                 particle.Position += change;
             }
         }

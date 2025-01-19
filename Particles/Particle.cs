@@ -11,7 +11,6 @@ namespace Particles
     {
         public Vector3 Position;
         public float AliveTime;
-        public Vector3 Direction;
-        public float CurrentSpeed;
+        public Vector3 TargetDirection;
     }
 }

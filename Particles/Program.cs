@@ -29,7 +29,7 @@ public class ParticlesTestScene : SceneWithMap
 {
     public ParticleSystem ParticleSystem = null!;
     public ParticleSystem FireParticleSystem = null!;
-    public Triangle triangle = new Triangle(new Vector3(0, 0, 0), new Vector3(-100, -100, 0), new Vector3(100, -100, 0));
+    public Triangle triangle = new Triangle(new Vector3(0, 0, 0), new Vector3(-15, -100, 0), new Vector3(15, -100, 0));
 
     protected override IEnumerator InternalLoadSceneRoutineAsync()
     {
@@ -45,12 +45,14 @@ public class ParticlesTestScene : SceneWithMap
         FireParticleSystem.ColorAtTime.Add(new ColorAtTime(0.13f, new Color("FFD563").SetAlpha(125)));
         FireParticleSystem.ColorAtTime.Add(new ColorAtTime(0.22f, new Color("FFD563")));
         FireParticleSystem.ColorAtTime.Add(new ColorAtTime(0.31f, new Color("FF5D15")));
-        FireParticleSystem.ColorAtTime.Add(new ColorAtTime(1f, new Color("FF1A00").SetAlpha(0)));
+        FireParticleSystem.ColorAtTime.Add(new ColorAtTime(0.9f, new Color("FF1A00").SetAlpha(0)));
+        FireParticleSystem.Speed = 50;
+        FireParticleSystem.Periodicity = 30;
         FireParticleSystem.LifeTime = 5000;
-        FireParticleSystem.SpawnShape = new Circle(new Vector2(0, 0), 10);
+        FireParticleSystem.SpawnShape = new Circle(new Vector2(0, 0), 5);
         FireParticleSystem.DirectionShape = new ParticleTriangleShape(triangle);
-
         FireParticleSystem.Init();
+
         yield break;
     }
 
@@ -58,8 +60,10 @@ public class ParticlesTestScene : SceneWithMap
     {
         base.UpdateScene(dt);
 
-        ParticleSystem.Update(dt);
+        //ParticleSystem.Update(dt);
         FireParticleSystem.Update(dt);
+
+        FireParticleSystem.Position = Engine.Renderer.Camera.ScreenToWorld(Engine.Host.MousePosition);
     }
 
     public override void RenderScene(RenderComposer c)
@@ -69,6 +73,6 @@ public class ParticlesTestScene : SceneWithMap
         ParticleSystem.Render(c);
         FireParticleSystem.Render(c);
 
-        //triangle.RenderOutline(c);
+        triangle.RenderOutline(c);
     }
 }
