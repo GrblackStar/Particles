@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Emotion.Common.Serialization;
 using Emotion.IO;
 using Emotion.Utility;
+using Particles.ParticleShape;
 
 namespace Particles
 {
@@ -29,9 +30,9 @@ namespace Particles
         public float Periodicity = 70;
         public float LifeTime = 1000;
         //public ENUM MovementMode
-        public Vector3 Direction = new(0, -1, 0); // up 2d
-        public float Speed = 500f;
+        public float Speed = 500f / 16f;
         public Circle SpawnShape = new Circle(new Vector2(0, 0), 200);
+        public IParticleDirectionShape DirectionShape = new ParticleConstantDirection(new Vector3(0, -1, 0));
         
         private float _timer = 0;
 
@@ -47,14 +48,14 @@ namespace Particles
 
         public void Update(float dt)
         {
-            var initialPos = SpawnShape.GetRandomPointInsideCircle();
             _timer += dt;
             
             while (_timer > Periodicity)
             { 
                 var particle = new Particle();
+                var initialPos = SpawnShape.GetRandomPointInsideCircle();
                 particle.Position = initialPos.ToVec3();
-
+                DirectionShape.SetParticleDirection(particle);
                 Particles.Add(particle);
                 _timer -= Periodicity;
             }
@@ -71,9 +72,9 @@ namespace Particles
 
             var speedPerMS = Speed / 1000f;
             var speedPerDt = speedPerMS * dt;
-            Vector3 change = Direction * speedPerMS;
             foreach (var particle in Particles)
             {
+                Vector3 change = particle.Direction * speedPerDt;
                 particle.Position += change;
             }
         }

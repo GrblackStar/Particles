@@ -4,6 +4,7 @@ using Emotion.Common;
 using Emotion.Graphics;
 using Emotion.Primitives;
 using Emotion.Scenography;
+using Particles.ParticleShape;
 
 namespace Particles;
 
@@ -24,15 +25,11 @@ public static class Program
     }
 }
 
-public struct Cone
-{
-
-}
-
 public class ParticlesTestScene : SceneWithMap
 {
     public ParticleSystem ParticleSystem = null!;
     public ParticleSystem FireParticleSystem = null!;
+    public Triangle triangle = new Triangle(new Vector3(0, 0, 0), new Vector3(-100, -100, 0), new Vector3(100, -100, 0));
 
     protected override IEnumerator InternalLoadSceneRoutineAsync()
     {
@@ -51,6 +48,7 @@ public class ParticlesTestScene : SceneWithMap
         FireParticleSystem.ColorAtTime.Add(new ColorAtTime(1f, new Color("FF1A00").SetAlpha(0)));
         FireParticleSystem.LifeTime = 5000;
         FireParticleSystem.SpawnShape = new Circle(new Vector2(0, 0), 10);
+        FireParticleSystem.DirectionShape = new ParticleTriangleShape(triangle);
 
         FireParticleSystem.Init();
         yield break;
@@ -70,5 +68,7 @@ public class ParticlesTestScene : SceneWithMap
 
         ParticleSystem.Render(c);
         FireParticleSystem.Render(c);
+
+        //triangle.RenderOutline(c);
     }
 }

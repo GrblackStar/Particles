@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Emotion.Utility;
+
+namespace Particles.ParticleShape;
+
+public class ParticleTriangleShape : IParticleDirectionShape
+{
+    public bool FromApex = true;
+
+    private Triangle _triangle;
+
+    public ParticleTriangleShape(Triangle triangle)
+    {
+        _triangle = triangle;
+    }
+
+    public void SetParticleDirection(Particle particle)
+    {
+        Vector3 pointOnLine = _triangle.Base.PointOnLineAtDistance(_triangle.Base.Length() * Helpers.GenerateRandomFloat()).ToVec3();
+        particle.Direction = Vector3.Normalize(pointOnLine - particle.Position);
+    }
+}
